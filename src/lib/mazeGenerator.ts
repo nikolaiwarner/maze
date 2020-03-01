@@ -32,7 +32,21 @@ export const createGrid = (maze: mazeInterface) => {
     }
     grid.push(row)
   }
+  // Clear path for start and end
+  grid[maze.startPosition!.y][maze.startPosition!.x] = 1
+  grid[maze.endPosition!.y][maze.endPosition!.x] = 1
   return grid
+}
+
+export const findWalls = (room: any, maze: mazeInterface) => {
+  const grid = maze.grid || []
+  let walls = {
+    north: (grid[room.y - 1] && grid[room.y - 1][room.x] === 0),
+    south: (grid[room.y + 1] && grid[room.y + 1][room.x] === 0),
+    east: (grid[room.y][room.x + 1] === 0),
+    west: (grid[room.y][room.x - 1] === 0),
+  }
+  return walls
 }
 
 export const setMazeStartAndEnd = (maze: mazeInterface) => {
@@ -79,11 +93,11 @@ const generate = (maze: mazeInterface): mazeInterface => {
   let count = 0
   while (!result.length) {
     count++
-    maze.grid = createGrid(maze)
     maze = setMazeStartAndEnd(maze)
+    maze.grid = createGrid(maze)
     result = testMaze(maze)
-    // console.log(count, result)
   }
+  console.log(`iterations: ${count}`, result)
   return maze
 }
 
