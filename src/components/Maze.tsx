@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
-import { mazeInterface, findWalls } from '../lib/mazeGenerator'
+import { MazeInterface, findWalls } from '../lib/mazeGenerator'
 
 const roomSize = 30
 const wallWidth = 10
@@ -13,7 +13,7 @@ interface MazeContainerInterface {
 
 interface RoomProps {
   key: string,
-  maze: mazeInterface,
+  maze: MazeInterface,
   x: number,
   y: number,
   totalColumns: number,
@@ -105,7 +105,7 @@ function Room (props: RoomProps) {
   )
 }
 
-function Maze (props: { maze: mazeInterface }) {
+function Maze (props: { maze: MazeInterface }) {
   let {startPosition, endPosition, grid} = props.maze
   if (!grid) {
     return null
